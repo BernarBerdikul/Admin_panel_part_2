@@ -17,8 +17,10 @@ class PersonType(models.TextChoices):
 
 
 class Genre(UUIDMixin, UpdateTimeMixin):
-    name = models.CharField(max_length=30, verbose_name=_("Название"))
-    description = models.TextField(blank=True, null=True, verbose_name=_("Описание"))
+    name = models.CharField(
+        max_length=30, verbose_name=_("Название"))
+    description = models.TextField(
+        blank=True, null=True, verbose_name=_("Описание"))
 
     class Meta:
         verbose_name = _("Жанр")
@@ -84,7 +86,8 @@ class FilmWork(UUIDMixin, UpdateTimeMixin):
         max_length=255, blank=True, null=True, verbose_name=_("Сертификат")
     )
     file_path = models.FileField(
-        upload_to=f"{settings.MEDIA_ROOT}/film_works/",
+        # upload_to=f"{settings.MEDIA_ROOT}/film_works",
+        upload_to=f"film_works",
         blank=True,
         verbose_name=_("Файл"),
     )
