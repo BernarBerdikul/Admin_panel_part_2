@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.9.1
+FROM python:3.9.7
 
 # set work directory
 WORKDIR /usr/src/app
@@ -10,10 +10,9 @@ ENV PYTHONUNBUFFERED 1
 
 # install dependencies
 COPY ./requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
-COPY entrypoint.sh .
-
-RUN chmod +x entrypoint.sh
+RUN pip install -r requirements.txt
 
 # copy project
 COPY . .
+
+CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--reload"]

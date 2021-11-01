@@ -1,8 +1,9 @@
+from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import MinValueValidator, MaxValueValidator
-from django.conf import settings
-from .mixins import UUIDMixin, CreateTimeMixin, UpdateTimeMixin
+
+from .mixins import CreateTimeMixin, UpdateTimeMixin, UUIDMixin
 
 
 class FilmWorkType(models.TextChoices):
@@ -17,10 +18,8 @@ class PersonType(models.TextChoices):
 
 
 class Genre(UUIDMixin, UpdateTimeMixin):
-    name = models.CharField(
-        max_length=30, verbose_name=_("Название"))
-    description = models.TextField(
-        blank=True, null=True, verbose_name=_("Описание"))
+    name = models.CharField(max_length=30, verbose_name=_("Название"))
+    description = models.TextField(blank=True, null=True, verbose_name=_("Описание"))
 
     class Meta:
         verbose_name = _("Жанр")
@@ -65,7 +64,7 @@ class PersonFilmWork(UUIDMixin, CreateTimeMixin):
         max_length=30,
         choices=PersonType.choices,
         default=PersonType.ACTOR,
-        verbose_name=_("Роль в фильме")
+        verbose_name=_("Роль в фильме"),
     )
 
     class Meta:
@@ -93,7 +92,8 @@ class FilmWork(UUIDMixin, UpdateTimeMixin):
     )
     rating = models.FloatField(
         validators=[MinValueValidator(1), MaxValueValidator(10)],
-        blank=True, verbose_name=_("Рейтинг")
+        blank=True,
+        verbose_name=_("Рейтинг"),
     )
     type = models.CharField(
         max_length=30,
@@ -108,7 +108,7 @@ class FilmWork(UUIDMixin, UpdateTimeMixin):
     )
 
     class Meta:
-        ordering = ['-id']
+        ordering = ["-id"]
         verbose_name = _("Кинопроизведение")
         verbose_name_plural = _("Кинопроизведения")
         db_table = 'content"."film_work'

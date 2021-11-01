@@ -1,4 +1,3 @@
-version: '3'
 
 services:
   postgres_db:
@@ -9,8 +8,7 @@ services:
     env_file:
       - envs/postgres.env
     volumes:
-      - ..\..\postgres_data:/var/lib/postgresql/data
-      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
       - ./docker/postgres/file.backup:/file.backup
     networks:
       - movies_admin
@@ -22,14 +20,11 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: ["/usr/src/app/entrypoint.sh"]
     volumes:
       - ./app/static:/usr/src/app/static
       - ./app/media:/usr/src/app/media
     ports:
       - "8000:8000"
-    expose:
-      - 8000
     env_file:
       - envs/django.env
     networks:
@@ -38,7 +33,7 @@ services:
       - postgres_db
 
   nginx:
-    image: nginx:1.19.0-alpine
+    image: nginx:1.20.1-alpine
     container_name: nginx
     volumes:
       - ./app/static/:/static/
@@ -54,3 +49,6 @@ services:
 
 networks:
   movies_admin:
+
+volumes:
+  postgres_data:

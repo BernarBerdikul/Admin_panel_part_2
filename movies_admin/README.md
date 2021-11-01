@@ -10,7 +10,15 @@
     docker-compose build
     docker-compose up
     ```
-3. Внутри контейнера **postgres_db** запустить backup базы 
+   
+3. Собрать статику внтури контейнера **django**
+   ```
+   docker exec -it django sh
+   python manage.py collectstatic --no-input
+   exit
+   ```
+
+4. Внутри контейнера **postgres_db** запустить backup базы 
    (для проверки лежит по пути ```movies_admin/docker/postgres/```)
     ```
     docker exec -it postgres_db sh
