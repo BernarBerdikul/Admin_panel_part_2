@@ -27,7 +27,7 @@ class MoviesListApi(MoviesApiMixin, BaseListView):
             "total_pages": paginator.num_pages,
             "prev": prev_page,
             "next": next_page,
-            "results": list(page.object_list.values()),
+            "results": list(page.object_list),
         }
 
 
