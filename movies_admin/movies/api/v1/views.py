@@ -19,9 +19,7 @@ class MoviesListApi(MoviesApiMixin, BaseListView):
         prev_page: Optional[int] = (
             page.previous_page_number() if page.has_previous() else None
         )
-        next_page: Optional[int] = (
-            page.next_page_number() if page.has_next() else None
-        )
+        next_page: Optional[int] = page.next_page_number() if page.has_next() else None
         return {
             "count": paginator.count,
             "total_pages": paginator.num_pages,
@@ -32,7 +30,6 @@ class MoviesListApi(MoviesApiMixin, BaseListView):
 
 
 class MoviesDetailApi(MoviesApiMixin, BaseDetailView):
-
     @query_debugger
     def get_context_data(self, *, object_list=None, **kwargs) -> dict:
-        return super().get_context_data(**kwargs).get('object')
+        return super().get_context_data(**kwargs).get("object")

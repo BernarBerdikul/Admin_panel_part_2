@@ -9,13 +9,13 @@ def query_debugger(func):
     def inner_func(*args, **kwargs):
         reset_queries()
 
-        start_queries = len(connection.queries)
+        start_queries: int = len(connection.queries)
 
-        start = time.perf_counter()
+        start: float = time.perf_counter()
         result = func(*args, **kwargs)
-        end = time.perf_counter()
+        end: float = time.perf_counter()
 
-        end_queries = len(connection.queries)
+        end_queries: int = len(connection.queries)
 
         print(f"Function : {func.__name__}")
         print(f"Number of Queries : {end_queries - start_queries}")

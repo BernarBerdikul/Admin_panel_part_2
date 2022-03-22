@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class MoviesConfig(AppConfig):
-    name = "movies"
-    verbose_name = "Фильмы"
+    name: str = "movies"
+    verbose_name: str = "Фильмы"
